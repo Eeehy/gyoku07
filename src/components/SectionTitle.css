@@ -1,0 +1,49 @@
+.section-title {
+  position: relative;
+}
+
+.section-title__text {
+  white-space: pre-line;
+}
+
+.section-title.is-drawing .section-title__text {
+  opacity: 0;
+}
+
+.section-title__effect {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.section-title__effect.is-ready {
+  opacity: 1;
+}
+
+.section-title__effect .stroke-text {
+  position: absolute;
+  line-height: 0;
+}
+
+.section-title__effect .stroke-text__svg {
+  overflow: visible;
+}
+
+.section-title__effect .stroke-text__stroke {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+}
+
+.section-title__effect [data-fill-char] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-title.is-drawing .section-title__text {
+    opacity: 1;
+  }
+  .section-title__effect {
+    display: none;
+  }
+}

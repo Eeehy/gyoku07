@@ -1,0 +1,11 @@
+.project-particle-title { position: relative; min-width: 0; }
+.project-particle-title__text { transition: opacity 180ms ease; }
+.project-particle-title.is-particle-active .project-particle-title__text { opacity: 0.58; }
+.project-particle-title__effect { position: absolute; inset: 0; pointer-events: none; transition: opacity 180ms ease; }
+.project-particle-title__line { position: absolute; display: block; }
+.project-particle-title__line .particle-text { min-height: 0; touch-action: auto; }
+.project-particle-title__line .particle-text__sr { display: none; }
+.project-title > svg { flex-shrink: 0; margin-left: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .project-particle-title__text, .project-particle-title__effect { transition: none; }
+}

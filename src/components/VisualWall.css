@@ -1,0 +1,23 @@
+.visual-wall { padding-top: 48px; padding-bottom: 48px; border-top: 1px solid var(--line); }
+.visual-wall__stage { position: relative; height: 600px; }
+.visual-wall .drift-wall__plane { cursor: default; }
+.visual-wall .drift-wall__tile img { filter: saturate(.92) brightness(1.65); }
+.visual-wall .drift-wall__tile.is-active img { filter: saturate(1.05) brightness(1); }
+.visual-wall__footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.visual-wall__label { margin-left: 18px; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .12em; }
+.visual-wall__footer a { display: inline-flex; align-items: center; gap: 14px; color: var(--accent); white-space: nowrap; }
+.visual-wall__footer a:hover { color: var(--accent-hover); }
+.visual-wall__footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.visual-wall__grid { list-style: none; margin: 0; padding: 42px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.visual-wall__grid li { min-width: 0; }
+.visual-wall__grid img { display: block; width: 100%; height: 180px; object-fit: cover; border-radius: 12px; background: #101722; }
+.visual-wall__grid span { display: block; margin-top: 12px; color: var(--muted); font-size: 12px; }
+.visual-wall__stage.is-static { height: auto; }
+@media (max-width: 767px) {
+  .visual-wall { padding-top: 24px; padding-bottom: 32px; }
+  .visual-wall__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; padding: 20px 0 28px; }
+  .visual-wall__grid img { height: 132px; border-radius: 8px; }
+  .visual-wall__grid span { font-size: 11px; line-height: 1.6; }
+  .visual-wall__footer { font-size: 12px; gap: 12px; }
+  .visual-wall__label { display: none; }
+}

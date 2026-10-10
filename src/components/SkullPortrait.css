@@ -1,0 +1,103 @@
+.about-console {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.about-console .terminal {
+  width: 100%;
+}
+.skull-portrait {
+  margin: 0;
+  min-width: 0;
+}
+.skull-portrait__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 12px;
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  border-bottom: 1px solid var(--line);
+}
+.skull-portrait__header > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skull-portrait__header i {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+}
+.skull-portrait__stage {
+  position: relative;
+  height: clamp(270px, 23vw, 330px);
+  overflow: hidden;
+  background: var(--bg);
+  isolation: isolate;
+}
+.skull-portrait__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.skull-portrait__effect {
+  position: absolute;
+  inset: 0;
+}
+.skull-portrait__placeholder {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  color: var(--accent);
+  opacity: 0.4;
+}
+.skull-portrait__cross {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.skull-portrait__cross--tl {
+  top: 15px;
+  left: 1px;
+  border-top: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
+}
+.skull-portrait__cross--br {
+  bottom: 15px;
+  right: 1px;
+  border-bottom: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+}
+.skull-portrait figcaption {
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #c3ced9;
+  font-size: 11px;
+}
+.skull-portrait figcaption small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.skull-portrait__hint {
+  color: var(--muted);
+  font-size: 10px;
+}
+@media (max-width: 767px) {
+  .about-console {
+    gap: 24px;
+  }
+  .skull-portrait__stage {
+    height: 290px;
+  }
+}

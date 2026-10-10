@@ -1,0 +1,807 @@
+/* Editorial first screen. Names isolate the original dark sections. */
+:root {
+  --horizon-ink: #0a243b;
+  --horizon-paper: #d2e2e9;
+}
+html {
+  scroll-padding-top: 100px;
+}
+.cinematic-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 60;
+  color: #edf4f8;
+  font-family: "Inter", "Microsoft YaHei", sans-serif;
+}
+.cinematic-announcement {
+  height: 30px;
+  background: #102b45ad;
+  color: #e8f4fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.17em;
+}
+.cinematic-nav-shell {
+  position: relative;
+  transition:
+    background 0.4s,
+    border-color 0.4s,
+    box-shadow 0.4s;
+  border-bottom: 1px solid transparent;
+}
+.cinematic-nav-inner {
+  height: 82px;
+  max-width: 1700px;
+  padding: 0 6%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 40px;
+}
+.cinematic-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+}
+.cinematic-brand svg {
+  width: 27px;
+  height: 27px;
+}
+.cinematic-brand > span {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.cinematic-brand small {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  align-self: center;
+  margin: 3px 0 0 9px;
+  opacity: 0.7;
+}
+.cinematic-nav {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  font-size: 13px;
+}
+.cinematic-nav > a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  position: relative;
+}
+.cinematic-nav > a::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  background: currentColor;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+.cinematic-nav > a:hover::after,
+.cinematic-nav > a:focus-visible::after {
+  transform: scaleX(1);
+}
+.cinematic-nav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.cinematic-connect {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 11px 19px;
+  min-height: 44px;
+  border: 1px solid #edf4f880;
+  border-radius: 100px;
+  font-size: 12px;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s,
+    translate 0.3s;
+}
+.cinematic-connect:hover {
+  background: #d9edf22b;
+}
+.cinematic-menu,
+.cinematic-mobile-contact {
+  display: none !important;
+}
+.cinematic-header.is-floating {
+  position: fixed;
+  top: 12px;
+  padding: 0 clamp(12px, 2vw, 32px);
+}
+.cinematic-header.is-floating .cinematic-announcement {
+  display: none;
+}
+.cinematic-header.is-floating .cinematic-nav-shell {
+  max-width: 1700px;
+  margin: auto;
+  border: 1px solid #b8dcff38;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #b8dcff12, #172d4533), #0e1b2d9e;
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    0 12px 40px #00000030,
+    inset 0 1px 0 #ecf7ff12;
+}
+.cinematic-header.is-floating .cinematic-nav-inner {
+  height: 72px;
+  padding: 0 clamp(20px, 3vw, 50px);
+}
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .cinematic-header.is-floating .cinematic-nav-shell {
+    background: #15263bed;
+  }
+}
+.cinematic-header a:focus-visible,
+.cinematic-header button:focus-visible {
+  outline-color: #cee9f8;
+}
+
+.horizon-hero {
+  position: relative;
+  height: 100svh;
+  isolation: isolate;
+  color: #edf4f8;
+  overflow: clip;
+  background: #10191b;
+  font-family: "Inter", "Microsoft YaHei", sans-serif;
+}
+.horizon-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.horizon-background > .horizon-still {
+  position: absolute;
+  inset: 0;
+}
+.horizon-still {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.horizon-video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.horizon-video.is-ready {
+  opacity: 1;
+}
+.horizon-reading-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #07101588 0%,
+    #07101555 38%,
+    #0710151a 75%
+  );
+}
+.horizon-dark-edge {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 67%,
+    #08090d14 75%,
+    #08090d8c 89%,
+    #08090d 100%
+  );
+}
+.horizon-departure {
+  position: absolute;
+  inset: 0;
+  background: #08090d;
+}
+.horizon-layout {
+  width: 100%;
+  max-width: 1700px;
+  margin: auto;
+  height: 100%;
+  padding: 0 6%;
+  position: relative;
+}
+.horizon-copy {
+  position: absolute;
+  top: clamp(160px, 20svh, 235px);
+  width: min(55%, 780px);
+}
+.horizon-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+.horizon-title {
+  color: #dceeff;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(88px, 7.65vw, 124px);
+  letter-spacing: -0.035em;
+  line-height: 0.99;
+  margin: 0;
+}
+.horizon-title-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.13em;
+  margin-bottom: -0.13em;
+}
+.horizon-title-line > span,
+.horizon-title-line > em {
+  display: block;
+  font-style: normal;
+  white-space: nowrap;
+}
+.horizon-title-line > em {
+  font-style: italic;
+}
+.horizon-description {
+  font-size: 16px;
+  line-height: 1.85;
+  color: #e1eaf0;
+  max-width: 485px;
+  margin-top: 25px;
+}
+.horizon-mobile-break {
+  display: none;
+}
+.silk-text,
+.silk-text-source {
+  display: block;
+}
+.silk-text {
+  position: relative;
+}
+.silk-text-canvas {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  pointer-events: none;
+  opacity: 0;
+}
+.silk-text.is-ready .silk-text-source {
+  color: transparent;
+}
+.silk-text.is-ready .silk-text-canvas {
+  opacity: 1;
+}
+.horizon-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 33px;
+}
+.horizon-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 23px;
+  min-height: 48px;
+  padding: 14px 24px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 400;
+  box-shadow: 0 5px 20px #0b263f12;
+  transition:
+    translate 0.3s,
+    background 0.25s;
+}
+.horizon-primary:hover {
+  background: var(--accent-hover);
+}
+.horizon-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: translate 0.3s;
+}
+.horizon-arrow-circle {
+  width: 37px;
+  height: 37px;
+  border: 1px solid #edf4f880;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background 0.25s;
+}
+.horizon-secondary:hover .horizon-arrow-circle {
+  background: #d4e9f04d;
+}
+.horizon-hero a:focus-visible {
+  outline-color: #cee9f8;
+}
+.horizon-bottom {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 40px;
+  color: #e3edf3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.horizon-availability,
+.horizon-scroll {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+.horizon-status-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.horizon-bottom a:focus-visible,
+.horizon-bottom button:focus-visible {
+  outline-color: #e6f2f7;
+}
+.horizon-bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.horizon-pause {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d5e7f738;
+  border-radius: 50%;
+  color: #d5e7f7;
+}
+.horizon-scroll svg {
+  animation: horizon-scroll-hint 3.5s ease-in-out infinite;
+}
+@keyframes horizon-scroll-hint {
+  0%,
+  65%,
+  100% {
+    transform: translateY(0);
+  }
+  78% {
+    transform: translateY(4px);
+  }
+}
+.horizon-hero + .manifesto-strip {
+  border-top-color: transparent;
+}
+
+@media (min-width: 1800px) {
+  .horizon-copy {
+    top: 21svh;
+  }
+  .horizon-eyebrow {
+    margin-bottom: 28px;
+  }
+  .horizon-description {
+    font-size: 17px;
+    margin-top: 30px;
+  }
+  .horizon-actions {
+    margin-top: 37px;
+  }
+}
+@media (max-height: 780px) and (min-width: 768px) {
+  .horizon-copy {
+    top: 125px;
+  }
+  .horizon-title {
+    font-size: clamp(68px, 10.7svh, 88px);
+  }
+  .horizon-eyebrow {
+    margin-bottom: 15px;
+  }
+  .horizon-description {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .horizon-actions {
+    margin-top: 22px;
+  }
+  .horizon-bottom {
+    bottom: 24px;
+  }
+}
+@media (max-width: 1100px) {
+  .cinematic-nav-inner {
+    gap: 20px;
+  }
+  .cinematic-brand small {
+    display: none;
+  }
+  .cinematic-nav {
+    gap: 27px;
+  }
+  .horizon-copy {
+    width: 63%;
+  }
+  .horizon-title {
+    font-size: clamp(74px, 8.2vw, 92px);
+  }
+  .horizon-description {
+    max-width: 420px;
+    font-size: 15px;
+  }
+}
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 86px;
+  }
+  .cinematic-announcement {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+  .cinematic-nav-inner {
+    height: 73px;
+    padding: 0 6%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .cinematic-brand {
+    gap: 7px;
+  }
+  .cinematic-brand > span {
+    font-size: 23px;
+  }
+  .cinematic-brand > svg {
+    width: 24px;
+    height: 24px;
+  }
+  .cinematic-connect {
+    font-size: 10px;
+    gap: 8px;
+    min-height: 44px;
+    padding: 9px 12px;
+  }
+  .cinematic-menu {
+    display: grid !important;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+  }
+  .cinematic-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 16px 6% 23px;
+    background: #101a24f5;
+    border-bottom: 1px solid #55738745;
+    backdrop-filter: blur(20px);
+  }
+  .cinematic-nav.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+  .cinematic-nav > a {
+    padding: 12px;
+    min-height: 47px;
+  }
+  .cinematic-nav > a::after {
+    display: none;
+  }
+  .cinematic-mobile-contact {
+    display: flex !important;
+    gap: 10px;
+  }
+  .cinematic-header.is-floating {
+    top: 10px;
+  }
+  .cinematic-header.is-floating .cinematic-nav-inner {
+    height: 64px;
+    padding: 0 16px;
+  }
+  .cinematic-header.is-floating .cinematic-nav {
+    top: calc(100% + 8px);
+    border: 1px solid #b8dcff38;
+    border-radius: 14px;
+    background: #101f31d9;
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+  }
+  .horizon-copy {
+    top: max(160px, 21svh);
+    width: 88%;
+  }
+  .horizon-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.21em;
+    margin-bottom: 24px;
+  }
+  .horizon-title {
+    font-size: clamp(54px, 11.8vw, 86px);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .horizon-description {
+    font-size: 14px;
+    line-height: 1.9;
+    max-width: 340px;
+    margin-top: 23px;
+  }
+  .horizon-mobile-break {
+    display: inline;
+  }
+  .horizon-reading-veil {
+    background: linear-gradient(
+      180deg,
+      #07101588 0%,
+      #07101566 46%,
+      #07101522 71%
+    );
+  }
+  .horizon-actions {
+    gap: 18px;
+    margin-top: 27px;
+    flex-wrap: wrap;
+  }
+  .horizon-primary {
+    padding: 13px 18px;
+    font-size: 11px;
+    gap: 12px;
+  }
+  .horizon-secondary {
+    font-size: 11px;
+    gap: 8px;
+  }
+  .horizon-arrow-circle {
+    width: 33px;
+    height: 33px;
+  }
+  .horizon-bottom {
+    bottom: 23px;
+    align-items: flex-end;
+  }
+  .horizon-availability,
+  .horizon-scroll {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    gap: 7px;
+  }
+  .horizon-pause {
+    position: absolute;
+    right: 0;
+    bottom: 52px;
+  }
+  .horizon-bottom-right {
+    gap: 0;
+  }
+}
+@media (max-width: 360px) {
+  .cinematic-connect {
+    display: none;
+  }
+  .horizon-title {
+    font-size: 12.2vw;
+  }
+  .horizon-actions {
+    gap: 14px;
+  }
+  .horizon-primary {
+    font-size: 10px;
+    padding: 13px 16px;
+  }
+  .horizon-secondary {
+    font-size: 10px;
+    gap: 7px;
+  }
+  .horizon-availability {
+    font-size: 8px;
+  }
+  .horizon-scroll {
+    font-size: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .horizon-scroll svg {
+    animation: none;
+  }
+  .horizon-video {
+    transition: none;
+  }
+  .cinematic-header,
+  .cinematic-nav-shell {
+    transition: none;
+  }
+}
+
+@media (max-height: 740px) and (max-width: 767px) {
+  .horizon-copy {
+    top: 145px;
+  }
+  .horizon-eyebrow {
+    margin-bottom: 16px;
+  }
+  .horizon-title {
+    font-size: 11.4vw;
+  }
+  .horizon-description {
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .horizon-actions {
+    margin-top: 20px;
+  }
+  .horizon-bottom {
+    bottom: 16px;
+  }
+}
+
+/* Keep the CTA reachable on compact landscape displays. */
+@media (max-height: 500px) and (min-width: 500px) {
+  .cinematic-nav-inner {
+    height: 66px;
+  }
+  .horizon-copy {
+    top: 100px;
+    width: 78%;
+  }
+  .horizon-eyebrow {
+    font-size: 9px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .horizon-title {
+    font-size: clamp(36px, 10.5svh, 54px);
+  }
+  .horizon-description {
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 10px;
+    max-width: 480px;
+  }
+  .horizon-mobile-break {
+    display: none;
+  }
+  .horizon-actions {
+    margin-top: 14px;
+    gap: 24px;
+  }
+  .horizon-primary,
+  .horizon-secondary {
+    min-height: 42px;
+    font-size: 11px;
+  }
+  .horizon-primary {
+    padding: 11px 19px;
+  }
+  .horizon-secondary {
+    color: #edf6fb;
+  }
+  .horizon-secondary .horizon-arrow-circle {
+    border-color: #edf6fb80;
+  }
+  .horizon-arrow-circle {
+    width: 30px;
+    height: 30px;
+  }
+  .horizon-bottom {
+    bottom: 10px;
+  }
+  .horizon-reading-veil {
+    background: linear-gradient(90deg, #07101599, #07101577 50%, #07101533 75%);
+  }
+}
+
+@media (max-height: 350px) and (min-width: 500px) {
+  .cinematic-nav-inner {
+    height: 54px;
+  }
+  .horizon-copy {
+    top: 91px;
+    width: 84%;
+  }
+  .horizon-eyebrow {
+    font-size: 8px;
+    line-height: 1.5;
+    margin-bottom: 7px;
+  }
+  .horizon-title {
+    font-size: 9svh;
+  }
+  .horizon-description {
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 7px;
+  }
+  .horizon-actions {
+    margin-top: 10px;
+  }
+  .horizon-bottom {
+    bottom: 8px;
+  }
+}
+
+/* Keep the same blue action language over the background video. */
+.cinematic-brand,
+.horizon-eyebrow {
+  color: var(--accent);
+}
+.cinematic-nav > a:is(:hover, :focus-visible),
+.horizon-secondary:is(:hover, :focus-visible) {
+  color: var(--accent);
+}
+.cinematic-connect {
+  color: var(--accent);
+  border-color: #b8dcff80;
+}
+.cinematic-connect:is(:hover, :focus-visible) {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.horizon-primary:focus-visible {
+  background: var(--accent-hover);
+}
+.horizon-secondary,
+.horizon-arrow-circle,
+.horizon-pause,
+.cinematic-menu {
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    border-color 0.25s,
+    translate 0.3s;
+}
+.horizon-secondary:is(:hover, :focus-visible) .horizon-arrow-circle,
+.horizon-pause:is(:hover, :focus-visible),
+.cinematic-menu:is(:hover, :focus-visible) {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.cinematic-menu {
+  border-radius: 50%;
+}

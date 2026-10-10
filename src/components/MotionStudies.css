@@ -1,0 +1,97 @@
+.motion-studies__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: start;
+  gap: clamp(24px, 4vw, 64px);
+}
+.film-study { min-width: 0; padding-top: 76px; }
+.film-study--feature { padding-top: 0; }
+.film-study__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: #9aaab8;
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+.film-study__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0d1721;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.film-study__frame > img, .film-study__frame > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.film-study__frame > video { visibility: hidden; }
+.film-study__frame.is-active > video { visibility: visible; }
+.film-study__play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #ecf5ff;
+  background: linear-gradient(180deg, transparent 35%, #02060c55);
+  cursor: pointer;
+}
+.film-study__play > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid #dceeff80;
+  color: var(--accent-ink);
+  background: var(--accent);
+  transition: background .25s, transform .25s;
+}
+.film-study__play svg { margin-left: 3px; }
+.film-study__play > span:last-child { font-size: 10px; letter-spacing: .15em; }
+.film-study__play:is(:hover, :focus-visible) > span:first-child {
+  background: var(--accent-hover);
+  transform: scale(1.08);
+}
+.film-study__play:focus-visible { outline: 2px solid var(--accent); outline-offset: -5px; }
+.film-study__caption { display: flex; align-items: center; gap: 16px; margin-top: 22px; }
+.film-study__caption h3 { flex: 1; font-size: clamp(18px, 1.8vw, 27px); font-weight: 500; letter-spacing: -.03em; }
+.film-study__caption a { display: grid; place-items: center; flex: 0 0 44px; height: 44px; color: var(--accent); }
+.film-study__caption a:is(:hover, :focus-visible) { color: var(--accent-hover); background: #b8dcff0d; border-radius: 50%; }
+.film-study__description { color: #9aa5b1; font-size: 14px; line-height: 1.9; margin-top: 4px; }
+.film-study__status { color: var(--accent); font-size: 13px; line-height: 1.8; margin-top: 8px; }
+.film-study__status:empty { display: none; }
+.motion-studies__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 42px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: #92a1af;
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+.motion-studies__footer a { display: flex; align-items: center; gap: 12px; min-height: 44px; color: var(--accent); font-size: 13px; letter-spacing: 0; }
+.motion-studies__footer a:hover { color: var(--accent-hover); }
+@media (max-width: 767px) {
+  .motion-studies__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .film-study { padding-top: 0; }
+  .film-study__caption { margin-top: 12px; }
+  .motion-studies__footer { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .film-study__meta { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-study__play > span:first-child { transition: none; }
+  .film-study__play:is(:hover, :focus-visible) > span:first-child { transform: none; }
+}
